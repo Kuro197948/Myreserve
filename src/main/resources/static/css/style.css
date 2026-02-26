@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+:root{
+  --bg: white;
+  --panel: rgba(255,255,255,0.06);
+  --panel-border: rgba(255,255,255,0.12);
+  --text: blue;
+  --muted: rgba(233,238,252,0.7);
+  --accent: #55b0ff; /* ←ここだけ好みで変える */
+  --shadow: 0 10px 30px rgba(0,0,0,0.55);
+}
+
+html, body {
+  height: 100%;
+}
+
+body{
+  background: radial-gradient(1200px 600px at 15% 10%, rgba(53,208,255,0.18), transparent 55%),
+              radial-gradient(1000px 500px at 85% 20%, rgba(180,80,255,0.16), transparent 60%),
+              var(--bg);
+  color: var(--text);
+}
+
+/* コンテナ（ページ全体の枠）*/
+.gb-container{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 28px 16px 60px; 
+}
+
+/* タイトル */
+.gb-title{
+  letter-spacing: .08em;
+  font-weight: 700;
+}
+
+/* ガラス風のパネル */
+.gb-panel{
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 18px;
+}
+
+/* ボタンを“ゲームっぽく” */
+.btn-gb{
+  border-radius: 14px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  padding: 10px 16px;
+  border: 1px solid rgba(53,208,255,0.35);
+  background: rgba(53,208,255,0.12);
+  color: var(--text);
+  box-shadow: 0 0 0 rgba(53,208,255,0);
+  transition: .2s ease;
+}
+.btn-gb:hover{
+  transform: translateY(-1px);
+  background: rgba(53,208,255,0.18);
+  border-color: rgba(53,208,255,0.6);
+  box-shadow: 0 0 18px rgba(53,208,255,0.22);
+  color: var(--text);
+}
+
+/* 小さめの文字 */
+.text-muted-gb{
+  color: var(--muted) !important;
+}
+
+/* テーブルも少し整える */
+.table-gb{
+  color: var(--text);
+}
+.table-gb thead th{
+  color: var(--muted);
+  border-bottom-color: rgba(255,255,255,0.15);
+}
+.table-gb td, .table-gb th{
+  border-top-color: rgba(255,255,255,0.10);
+}

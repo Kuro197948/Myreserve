@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>お知らせ詳細</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+
+  <h1 class="mt-4">お知らせ詳細</h1>
+
+  <p>
+    <a class="mt-4 btn btn-primary"
+       th:href="@{/members/club/announcements}">
+      一覧に戻る
+    </a>
+  </p>
+
+  <div class="mt-4">
+    <h3 th:text="${news.title}"></h3>
+
+    <p class="text-muted">
+      <span th:text="${news.author}"></span> |
+      <span th:text="${#temporals.format(news.postDate,'yyyy年MM月dd日')}"></span>
+    </p>
+
+    <hr>
+
+    <!-- 本文 -->
+    <div th:if="${detail != null}"
+         th:text="${detail.article}">
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

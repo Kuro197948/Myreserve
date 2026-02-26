@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>[[${title}]]</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+  <div class="gb-container">
+    <h1 class="gb-title mb-3 text-center">ホーム</h1>
+
+    <th:block th:if="${session.loginId}">
+      <div class="gb-panel">
+        <div class="d-flex justify-content-center gap-4 flex-wrap">
+          <a th:href="@{/admins/club/announcements}" class="btn btn-gb">お知らせ一覧</a>
+          <a th:href="@{/admins/club/memberslist}" class="btn btn-gb">会員一覧</a>
+          <a th:href="@{/logout}" class="btn btn-gb">ログアウト</a>
+        </div>
+      </div>
+    </th:block>
+  </div>
+
+  <script></script>
+</body>
+</html>

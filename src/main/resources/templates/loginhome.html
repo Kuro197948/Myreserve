@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>会員管理システム</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+  <div class="text-center mt-4">
+
+    <div class="alert alert-warning" th:if="${param.needLogin}">
+      ログインしてください
+    </div>
+
+    <h1 class="mb-4">ログイン選択</h1>
+
+    <div class="d-flex justify-content-center gap-3">
+      <a th:href="@{/members/memberslogin}" class="btn btn-primary">
+        会員の方はこちら
+      </a>
+
+      <a th:href="@{/admins/adminslogin}" class="btn btn-secondary">
+        管理者の方はこちら
+      </a>
+    </div>
+
+  </div>
+
+</body>
+</html>

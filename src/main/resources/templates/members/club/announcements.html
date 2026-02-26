@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>新着情報一覧</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="d-flex gap-3 mt-4">
+      <a class="btn btn-secondary" th:href="@{/members/club/home}">ホームに戻る</a>
+      <a class="btn btn-secondary" th:href="@{/members/club/logout}">ログアウト</a>
+    </div>
+
+    <h1 class="mt-4">新着情報一覧</h1>
+
+    <!-- 0件のとき -->
+    <div class="alert alert-info mt-3" th:if="${#lists.isEmpty(newsList)}">
+      現在、新着情報はありません。
+    </div>
+
+    <!-- 1件以上のとき -->
+    <div class="table-responsive mt-3" th:unless="${#lists.isEmpty(newsList)}">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>タイトル</th>
+            <th>投稿者</th>
+            <th>掲載日</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="n : ${newsList}">
+            <td>
+              <a th:href="@{/members/club/announcements/{id}(id=${n.id})}"
+                 th:text="${n.title}"></a>
+            </td>
+            <td th:text="${n.author}"></td>
+            <td th:text="${n.postDate}"></td>
+            <td>
+              <a class="btn btn-outline-primary btn-sm"
+                 th:href="@{/members/club/announcements/{id}(id=${n.id})}">
+                詳細
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</body>
+</html>

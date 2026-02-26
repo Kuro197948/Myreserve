@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>[[${title}]]</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+
+	<h1 class="mb-3 text-center">ホーム</h1>
+		<!--th:hrefにより/admin/announcements/formというURLを作れと指示-->
+		<!--class=btnでこの要素はボタンとして扱うと宣言-->
+		
+		<div class="d-flex justify-content-center gap-4">
+		<a th:href="@{/members/club/announcements}" class="btn btn-primary">
+			新着情報一覧
+		</a>
+		
+		<a th:href="@{/members/club/upgrade}" class="btn btn-secondary">
+			アップグレード
+		
+		</a>
+		<a class="btn btn-secondary" th:href="@{/members/logout}">ログアウト</a>
+		
+		</div>
+		</div>
+		<!--scriptを追加したい時だけ書く(無ければ空でOK-->
+		<script></script>
+		</th:block>
+		
+			
+			
+		
+
+	</body>
+	</html>
