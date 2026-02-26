@@ -6,14 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.app.domain.Admin;
+import com.example.app.domain.AdminLoginForm;
 
 @Controller
 public class LoginHomeController {
 		
 	@GetMapping("/")
 	public String Loginhome(Model model) {
-		model.addAttribute("admin", new Admin());
+		model.addAttribute("admin", new AdminLoginForm());
 		return "redirect:/loginhome";
 	}
 	@GetMapping({"/loginhome","/loginHome"})
@@ -22,7 +22,7 @@ public class LoginHomeController {
 	    if (session.getAttribute("loginId") != null) {
 	        return "redirect:/admins/club/home"; // 管理者ログイン後ホームに
 	    }
-	    model.addAttribute("admin", new Admin());
+	    model.addAttribute("admin", new AdminLoginForm());
 	    return "loginhome";
 	}
 	}

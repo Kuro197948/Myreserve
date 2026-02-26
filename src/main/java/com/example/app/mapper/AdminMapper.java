@@ -1,9 +1,9 @@
 package com.example.app.mapper;
 
-import com.example.app.domain.Admin;
+import com.example.app.domain.AdminLoginForm;
 
 public interface AdminMapper {
 
-	Admin selectByLoginId(String loginId);
+	AdminLoginForm selectByLoginId(String loginId);
 	
 }

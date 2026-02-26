@@ -9,7 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.app.domain.Admin;
+import com.example.app.domain.AdminLoginForm;
 import com.example.app.service.AdminService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class AdminLoginController {
     		return "redirect:/admins/club/home";
     	}
     	
-    	model.addAttribute("admin", new Admin());
+    	model.addAttribute("admin", new AdminLoginForm());
         return "admins/adminslogin";
     }
     
@@ -38,7 +38,7 @@ public class AdminLoginController {
     // ログイン処理
     @PostMapping("/admins/adminslogin")
     public String login(
-            @Valid Admin admin,
+            @Valid AdminLoginForm admin,
             Errors errors) {
 
         // 入力に不備がある場合

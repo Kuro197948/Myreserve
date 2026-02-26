@@ -4,7 +4,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.app.domain.Admin;
+import com.example.app.domain.AdminLoginForm;
 import com.example.app.mapper.AdminMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class AdminServiceImpl implements AdminService {
 		
 		@Override
 		public boolean login(String loginId, String loginPass) {
-				Admin admin = mapper.selectByLoginId(loginId);
+				AdminLoginForm admin = mapper.selectByLoginId(loginId);
 				
 				//ログインIDが正しいかチェック
 				// => ログインIDが正しくなければ、管理者データは取得されない
