@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>[[${title}]]</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+
+    <h1 class="mb-4 text-center">予約フォーム</h1>
+
+    <form th:action="@{/members/club/reservation/create}" th:object="${reservation}" method="post">
+        
+        <div class="mb-3">
+            <label for="reservationDate" class="form-label">予約日時</label>
+            <input type="datetime-local" th:field="*{reservationDate}" class="form-control" id="reservationDate">
+        </div>
+
+        <div class="mb-3">
+            <label for="peopleCount" class="form-label">人数</label>
+            <input type="number" th:field="*{peopleCount}" class="form-control" id="peopleCount" min="1">
+        </div>
+
+        <div class="mb-3">
+            <label for="representativeName" class="form-label">代表者名</label>
+            <input type="text" th:field="*{representativeName}" class="form-control" id="representativeName">
+        </div>
+
+        <div class="mb-3">
+            <label for="phoneNumber" class="form-label">電話番号</label>
+            <input type="text" th:field="*{phoneNumber}" class="form-control" id="phoneNumber">
+        </div>
+
+        <div class="mb-3">
+            <label for="courseName" class="form-label">コース名</label>
+            <input type="text" th:field="*{courseName}" class="form-control" id="courseName">
+        </div>
+
+        <div class="mb-3">
+            <label for="remarks" class="form-label">備考</label>
+            <textarea th:field="*{remarks}" class="form-control" id="remarks" rows="4"></textarea>
+        </div>
+
+        <div class="d-flex justify-content-center gap-3">
+            <button type="submit" class="btn btn-primary">予約する</button>
+            <a th:href="@{/members/club/home}" class="btn btn-secondary">戻る</a>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

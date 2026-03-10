@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>[[${title}]]</title>
+
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1 class="mb-4 text-center">予約詳細</h1>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <td th:text="${reservation.id}"></td>
+        </tr>
+        <tr>
+            <th>予約日時</th>
+            <td th:text="${reservation.reservationDate}"></td>
+        </tr>
+        <tr>
+            <th>人数</th>
+            <td th:text="${reservation.peopleCount}"></td>
+        </tr>
+        <tr>
+            <th>代表者名</th>
+            <td th:text="${reservation.representativeName}"></td>
+        </tr>
+        <tr>
+            <th>電話番号</th>
+            <td th:text="${reservation.phoneNumber}"></td>
+        </tr>
+        <tr>
+            <th>コース名</th>
+            <td th:text="${reservation.courseName}"></td>
+        </tr>
+        <tr>
+            <th>備考</th>
+            <td th:text="${reservation.remarks}"></td>
+        </tr>
+        <tr>
+            <th>ステータス</th>
+            <td th:text="${reservation.status}"></td>
+        </tr>
+        <tr>
+            <th>作成日時</th>
+            <td th:text="${reservation.createdAt}"></td>
+        </tr>
+    </table>
+
+	<div class="d-flex justify-content-center gap-3">
+	    <a th:href="@{/admins/club/reservations}" class="btn btn-secondary">一覧へ戻る</a>
+
+	    <a th:href="@{/admins/club/reservations/edit/{id}(id=${reservation.id})}"
+	       class="btn btn-primary">
+	       編集
+	    </a>
+
+		<form th:action="@{/admins/club/reservations/delete/{id}(id=${reservation.id})}"
+		      method="post"
+		      onsubmit="return confirm('本当に削除しますか？');">
+		    <button type="submit" class="btn btn-danger">削除</button>
+		</form>
+	</div>
+
+</div>
+
+</body>
+</html>

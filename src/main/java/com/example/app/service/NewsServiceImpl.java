@@ -30,6 +30,10 @@ public class NewsServiceImpl implements NewsService {
 	    newsMapper.deleteById(id);
  }
  @Override
+ public List<News> getLatestWithDetail(int limit) {
+     return newsMapper.selectLatestWithDetail(limit);
+ }
+ @Override
  public List<News> getNewsList() {
  return newsMapper.selectAll();
  }

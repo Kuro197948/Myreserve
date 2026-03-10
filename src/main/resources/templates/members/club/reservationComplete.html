@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>[[${title}]]</title>
+
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+
+<div class="container text-center">
+
+    <h1 class="mb-4">予約完了</h1>
+
+    <div class="alert alert-success">
+        ご予約ありがとうございました。<br>
+        予約を受け付けました。
+    </div>
+
+    <div class="mt-4">
+        <a th:href="@{/members/club/home}" class="btn btn-primary">
+            ホームへ戻る
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

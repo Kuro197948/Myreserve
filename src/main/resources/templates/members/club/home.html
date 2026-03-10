@@ -1,38 +1,86 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>[[${title}]]</title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-<link rel="stylesheet" th:href="@{/css/style.css}">
+  <meta charset="UTF-8">
+  <title>[[${title}]]</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <div class="container">
 
-	<h1 class="mb-3 text-center">ホーム</h1>
-		<!--th:hrefにより/admin/announcements/formというURLを作れと指示-->
-		<!--class=btnでこの要素はボタンとして扱うと宣言-->
-		
-		<div class="d-flex justify-content-center gap-4">
-		<a th:href="@{/members/club/announcements}" class="btn btn-primary">
-			新着情報一覧
-		</a>
-		
-		<a th:href="@{/members/club/upgrade}" class="btn btn-secondary">
-			アップグレード
-		
-		</a>
-		<a class="btn btn-secondary" th:href="@{/members/logout}">ログアウト</a>
-		
-		</div>
-		</div>
-		<!--scriptを追加したい時だけ書く(無ければ空でOK-->
-		<script></script>
-		</th:block>
-		
-			
-			
-		
+  <h1 class="mb-3 text-center">ホーム</h1>
+  
+  <div class="text-center mb-3">
 
-	</body>
-	</html>
+    <!-- プレミアム -->
+    <div class="alert alert-warning d-inline-block px-4 py-2"
+         th:if="${session.memberTypeId == 2}">
+      あなたは <strong>プレミアム会員</strong> です
+    </div>
+
+    <!-- レギュラー -->
+    <div class="alert alert-secondary d-inline-block px-4 py-2"
+         th:if="${session.memberTypeId != 2}">
+      あなたは <strong>レギュラー会員</strong> です
+    </div>
+
+  </div>
+ 
+  <div class="d-flex justify-content-center gap-4 mb-4">
+    <a th:href="@{/members/club/announcements}" class="btn btn-primary">
+      新着情報一覧
+    </a>
+	<a th:href="@{/members/club/reservation/form}" class="btn btn-success">
+	    予約する
+	</a>
+
+    <a th:href="@{/members/club/upgrade}" class="btn btn-secondary"
+	th:if="${session.memberTypeId != 2}">
+      アップグレード
+    </a>
+
+    <a class="btn btn-secondary" th:href="@{/members/logout}">ログアウト</a>
+  </div>
+
+  <div class="mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h3 class="mb-0">新着情報</h3>
+     
+    </div>
+
+    <div th:if="${latestNews != null and !#lists.isEmpty(latestNews)}">
+      <div class="card mb-3" th:each="n : ${latestNews}">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <h5 class="card-title mb-1">
+              <a th:href="@{/members/club/announcements/{id}(id=${n.id})}"
+                 th:text="${n.title}">タイトル</a>
+            </h5>
+            <small class="text-muted" th:text="${#temporals.format(n.postDate,'yyyy/MM/dd')}">2026/03/03</small>
+          </div>
+
+          <small class="text-muted" th:text="${n.author}">投稿者</small>
+
+          <!-- detail が null の可能性もあるので安全に -->
+          <p class="card-text mt-2"
+             th:text="${n.detail != null ? #strings.abbreviate(n.detail.article, 160) : '本文はありません'}">
+            本文…
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-secondary" th:if="${latestNews == null or #lists.isEmpty(latestNews)}">
+      新着情報はありません
+    </div>
+
+  </div>
+
+</div>
+
+<!--scriptを追加したい時だけ書く(無ければ空でOK-->
+<script></script>
+</body>
+</html>

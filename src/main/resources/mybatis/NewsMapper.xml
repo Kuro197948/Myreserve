@@ -22,6 +22,16 @@
  ON news.id = news_details.news_id
  WHERE news.id = #{id}
  </select>
+ <select id="selectLatestWithDetail" parameterType="int" resultMap="joinedResult">
+  SELECT
+    news.id, news.title, news.author, news.post_date,
+    news_details.article, news_details.photo
+  FROM news
+  LEFT JOIN news_details
+    ON news.id = news_details.news_id
+  ORDER BY news.post_date DESC, news.id DESC
+  LIMIT #{limit}
+</select>
 
  
  <insert id="insert" parameterType="News"

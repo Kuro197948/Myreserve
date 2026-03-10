@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>[[${title}]]</title>
+
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+
+<div class="container mt-4">
+
+    <h1 class="mb-4 text-center">予約一覧</h1>
+
+    <table class="table table-striped table-bordered table-hover align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>予約日時</th>
+                <th>人数</th>
+                <th>代表者名</th>
+                <th>電話番号</th>
+                <th>コース</th>
+                <th>ステータス</th>
+                <th>詳細</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="reservation : ${reservations}">
+                <td th:text="${reservation.id}"></td>
+                <td th:text="${reservation.reservationDate}"></td>
+                <td th:text="${reservation.peopleCount}"></td>
+                <td th:text="${reservation.representativeName}"></td>
+                <td th:text="${reservation.phoneNumber}"></td>
+                <td th:text="${reservation.courseName}"></td>
+                <td th:text="${reservation.status == 'reserved' ? '予約中' : (reservation.status == 'cancelled' ? 'キャンセル' : reservation.status)}"></td>
+                <td>
+                    <a th:href="@{/admins/club/reservations/{id}(id=${reservation.id})}"
+                       class="btn btn-sm btn-primary">
+                        詳細
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center mt-3">
+        <a th:href="@{/admins/club/home}" class="btn btn-secondary">
+            管理ホームへ戻る
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>
