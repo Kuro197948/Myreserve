@@ -62,7 +62,7 @@ public class MemberController {
 		
 		service.addMember(member);
 		rd.addFlashAttribute("statusMessage", "会員を追加しました。");
-		return "redirect:/admins/club/membeslist";
+		return "redirect:/admins/club/memberslist";
 	}
 	@GetMapping("/edit/{id}")
 	public String editGet(@PathVariable Integer id, Model model) {

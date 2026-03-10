@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>お知らせの追加</title>
+<title>新着情報の追加</title>
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <div class="container">
-<h1 class="my-4">お知らせの追加</h1>
+<h1 class="my-4">新着情報の追加</h1>
 <form action="" method="post" th:object="${newsForm}"
 enctype="multipart/form-data" id="form">
  <span th:errors="*{title}" class="error"></span>
