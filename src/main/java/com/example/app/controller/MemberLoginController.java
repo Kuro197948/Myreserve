@@ -42,7 +42,7 @@ public class MemberLoginController {
 
     @PostMapping("/members/memberslogin")
     public String login(
-    		@ModelAttribute("form")@Valid MemberLoginForm form, Errors errors, Model model) {
+    		@ModelAttribute("form") @Valid MemberLoginForm form, Errors errors, Model model) {
 
         if (errors.hasErrors()) {
             return "members/memberslogin";
