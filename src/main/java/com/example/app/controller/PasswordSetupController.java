@@ -25,19 +25,21 @@ public class PasswordSetupController {
     private final MemberMapper memberMapper;
 
     @GetMapping("/members/password/setup")
-    public String showSetup(@RequestParam("token") String token, Model model) {
+    public String showPasswordSetup(
+            @RequestParam("token") String token,
+            Model model) {
 
-        PasswordResetToken resetToken = passwordResetService.findValidToken(token);
+        PasswordResetToken passwordResetToken = passwordResetService.findValidToken(token);
 
-        if (resetToken == null) {
-            return "members/tokenInvalid";
+        if (passwordResetToken == null) {
+            model.addAttribute("errorMessage", "無効または期限切れのトークンです。");
+            return "members/passwordSetupError";
         }
 
         PasswordSetupForm form = new PasswordSetupForm();
         form.setToken(token);
 
         model.addAttribute("form", form);
-
         return "members/passwordSetup";
     }
 
@@ -47,28 +49,27 @@ public class PasswordSetupController {
             Errors errors,
             Model model) {
 
+        PasswordResetToken passwordResetToken = passwordResetService.findValidToken(form.getToken());
+
+        if (passwordResetToken == null) {
+            model.addAttribute("errorMessage", "無効または期限切れのトークンです。");
+            return "members/passwordSetupError";
+        }
+
+        if (!form.getPassword().equals(form.getConfirmPassword())) {
+            errors.rejectValue("confirmPassword", "error.password.mismatch", "確認用パスワードが一致しません。");
+        }
+
         if (errors.hasErrors()) {
             return "members/passwordSetup";
         }
 
-        if (!form.getPassword().equals(form.getConfirmPassword())) {
-            errors.reject("password.mismatch", "パスワードが一致しません");
-            return "members/passwordSetup";
-        }
+        String hashedPassword = BCrypt.hashpw(form.getPassword(), BCrypt.gensalt());
 
-        PasswordResetToken resetToken =
-                passwordResetService.findValidToken(form.getToken());
-
-        if (resetToken == null) {
-            return "members/tokenInvalid";
-        }
-
-        String hashed = BCrypt.hashpw(form.getPassword(), BCrypt.gensalt());
-
-        memberMapper.updatePasswordById(resetToken.getMemberId(), hashed);
+        memberMapper.updatePasswordById(passwordResetToken.getMemberId(), hashedPassword);
 
         passwordResetService.deleteToken(form.getToken());
 
-        return "members/passwordComplete";
+        return "members/passwordSetupComplete";
     }
 }
