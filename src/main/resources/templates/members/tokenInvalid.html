@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>無効なリンク</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+<h2>リンクが無効です</h2>
+
+<p>このパスワード設定リンクは無効か期限切れです。</p>
+
+<a th:href="@{/members/memberslogin}" class="btn btn-primary">
+ログイン画面へ
+</a>
+
+</div>
+
+</body>
+</html>

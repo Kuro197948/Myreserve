@@ -42,16 +42,18 @@ public class MemberLoginController {
 
     @PostMapping("/members/memberslogin")
     public String login(
-    		@ModelAttribute("form") @Valid MemberLoginForm form, Errors errors, Model model) {
+            @ModelAttribute("form") @Valid MemberLoginForm form,
+            Errors errors,
+            Model model) {
 
         if (errors.hasErrors()) {
             return "members/memberslogin";
         }
 
-        Member member = service.login(form.getName(), form.getLoginPass());
+        Member member = service.login(form.getEmail(), form.getLoginPass());
 
         if (member == null) {
-            errors.reject("error.incorrect_id_password", "ログインIDまたはパスワードが正しくありません");
+            errors.reject("error.incorrect_id_password", "メールアドレスまたはパスワードが正しくありません");
             return "members/memberslogin";
         }
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>会員登録</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+
+<body>
+
+<div class="container mt-4" style="max-width:480px">
+
+<h2 class="mb-4">会員登録</h2>
+
+<form th:action="@{/members/register}" th:object="${form}" method="post">
+
+<div class="mb-3">
+<label class="form-label">名前</label>
+<input type="text" class="form-control" th:field="*{name}">
+<div class="text-danger small" th:errors="*{name}"></div>
+</div>
+
+<div class="mb-3">
+<label class="form-label">メールアドレス</label>
+<input type="email" class="form-control" th:field="*{email}">
+<div class="text-danger small" th:errors="*{email}"></div>
+</div>
+
+<div class="mb-3">
+<label class="form-label">会員種別</label>
+<select class="form-control" th:field="*{typeId}">
+<option value="1">一般</option>
+<option value="2">VIP</option>
+</select>
+</div>
+
+<button class="btn btn-primary w-100">登録</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

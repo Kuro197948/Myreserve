@@ -1,45 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.example.app.mapper.MemberMapper">
 
     <sql id="joinSelect">
         SELECT
             members.id,
             members.name,
+            members.email,
+            members.login_pass,
             members.created,
             member_types.id AS type_id,
             member_types.name AS type_name
         FROM members
         JOIN member_types
-            ON members.type_id = member_types.id
+          ON members.type_id = member_types.id
     </sql>
 
-    <select id="selectByName" resultType="com.example.app.domain.Member">
-        SELECT id, name
-        FROM members
-        WHERE name = #{name}
-    </select>
-
     <resultMap id="memberMap" type="com.example.app.domain.Member">
-        <id column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="created" property="created"/>
-        <result column="type_id" property="type.id"/>
-        <result column="type_name" property="type.name"/>
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="loginPass" column="login_pass"/>
+        <result property="created" column="created"/>
+        <association property="type" javaType="com.example.app.domain.MemberType">
+            <id property="id" column="type_id"/>
+            <result property="name" column="type_name"/>
+        </association>
     </resultMap>
 
     <select id="selectAll" resultMap="memberMap">
-        <include refid="joinSelect" />
+        <include refid="joinSelect"/>
+        ORDER BY members.id
     </select>
 
-    <select id="selectById" parameterType="int" resultMap="memberMap">
-        <include refid="joinSelect" />
+    <select id="selectById" resultMap="memberMap">
+        <include refid="joinSelect"/>
         WHERE members.id = #{id}
     </select>
 
+    <select id="selectByName" resultMap="memberMap">
+        <include refid="joinSelect"/>
+        WHERE members.name = #{name}
+    </select>
+
+    <select id="selectByEmail" resultMap="memberMap">
+        <include refid="joinSelect"/>
+        WHERE members.email = #{email}
+    </select>
+
     <select id="selectLimited" resultMap="memberMap">
-        <include refid="joinSelect" />
+        <include refid="joinSelect"/>
+        ORDER BY members.id
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
@@ -47,20 +60,41 @@
         SELECT COUNT(*) FROM members
     </select>
 
-    <insert id="insert" parameterType="Member">
-        INSERT INTO members
-            (name, type_id, created)
-        VALUES
-            (#{name}, #{type.id}, NOW())
-    </insert>
+   <insert id="insert"
+        parameterType="com.example.app.domain.Member"
+        useGeneratedKeys="true"
+        keyProperty="id">
+    INSERT INTO members (
+        name,
+        email,
+        login_pass,
+        type_id,
+        created
+    ) VALUES (
+        #{name},
+        #{email},
+        #{loginPass},
+        #{type.id},
+        #{created}
+    )
+</insert>
 
-    <update id="update" parameterType="Member">
+    <update id="update" parameterType="com.example.app.domain.Member">
         UPDATE members
-        SET name = #{name}, type_id = #{type.id}
+        SET
+            name = #{name},
+            email = #{email},
+            type_id = #{type.id}
         WHERE id = #{id}
     </update>
 
-    <delete id="delete" parameterType="int">
+    <update id="updatePasswordById">
+        UPDATE members
+        SET login_pass = #{loginPass}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
         DELETE FROM members
         WHERE id = #{id}
     </delete>

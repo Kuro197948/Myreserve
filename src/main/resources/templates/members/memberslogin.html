@@ -13,17 +13,14 @@
 
   <form th:action="@{/members/memberslogin}" th:object="${form}" method="post">
 
-    <!-- グローバルエラー（ID/パス間違いなど） -->
-    <div class="alert alert-danger"
-         th:if="${#fields.hasGlobalErrors()}">
-		 <div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
-      
+    <div class="alert alert-danger" th:if="${#fields.hasGlobalErrors()}">
+      <div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
     </div>
 
     <div class="mb-3">
-      <label class="form-label">ログインID</label>
-      <input type="text" class="form-control" th:field="*{name}">
-      <div class="text-danger small" th:errors="*{name}"></div>
+      <label class="form-label">メールアドレス</label>
+      <input type="email" class="form-control" th:field="*{email}">
+      <div class="text-danger small" th:errors="*{email}"></div>
     </div>
 
     <div class="mb-3">
