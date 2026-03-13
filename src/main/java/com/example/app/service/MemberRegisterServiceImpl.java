@@ -37,11 +37,12 @@ public class MemberRegisterServiceImpl implements MemberRegisterService {
 
         memberMapper.insert(member);
 
-        PasswordResetToken token = passwordResetService.createToken(member.getId());
+        PasswordResetToken passwordResetToken =
+                passwordResetService.createToken(member.getId());
 
         MemberRegisterResult result = new MemberRegisterResult();
         result.setMember(member);
-        result.setPasswordResetToken(token);
+        result.setPasswordResetToken(passwordResetToken);
 
         return result;
     }
